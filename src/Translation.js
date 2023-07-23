@@ -1,22 +1,30 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 
 const Translation = ({ text }) => {
   const [translation, setTranslation] = useState(null)
 
-  async function translateWord(word) {
-    const language = "auto"
-    const response = await fetch(
-      `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${language}&tl=uk&dt=t&q=${encodeURIComponent(
-        word
-      )}`
-    )
-    const data = await response.json()
-    const translation = data[0][0][0]
-    setTranslation(translation)
-  }
+  useEffect(() => {
+    async function translateWord(word) {
+      const language = "auto"
+      try {
+        const response = await fetch(
+          `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${language}&tl=uk&dt=t&q=${encodeURIComponent(
+            word
+          )}`
+        )
+        const data = await response.json()
+        const translatedText = data?.[0]?.[0]?.[0]
+        setTranslation(translatedText)
+      } catch (error) {
+        console.error("Error translating word:", error)
+        setTranslation(null)
+      }
+    }
 
-  translateWord(text)
+    translateWord(text)
+  }, [text])
 
   return <div className="content">{translation}</div>
 }
+
 export default Translation

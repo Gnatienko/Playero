@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import ReactPlayer from "react-player"
 import SubtitlesParser from "subtitles-parser"
 import Line from "./Line"
@@ -9,7 +9,10 @@ const subtitlesUrl =
   "The.Big.Bang.Theory.S07E13.720p.HDTV.x264-maximersk_1542749704_720p.srt" // "/subs.vtt"
 
 const App = () => {
+  const playerRef = useRef(null)
   const [currentSubtitle, setCurrentSubtitle] = useState()
+  const [currentSubtitleIndex, setCurrentSubtitleIndex] = useState(0)
+
   const [parsedSubtitles, setParsedSubtitles] = useState([
     { startTime: 1, text: 1 },
   ])
@@ -41,11 +44,34 @@ const App = () => {
     )
     setCurrentSubtitle(currentLine ? currentLine.text.split(" ") : "")
     console.log(currentSubtitle)
+
+    const currentLineIndex =
+      parsedSubtitles.findIndex(
+        (subtitle) =>
+          subtitle.startTime > PlayedMillisecond &&
+          subtitle.endTime > PlayedMillisecond
+      ) - 1
+    setCurrentSubtitleIndex(currentLineIndex)
+    console.log(currentSubtitleIndex)
+  }
+
+  const handleKeyDown = (event) => {
+    if (event.key === "1") {
+      playerRef.current.seekTo(
+        parseFloat(parsedSubtitles[currentSubtitleIndex].startTime) / 1000
+      )
+    }
+    if (event.key === "2") {
+      playerRef.current.seekTo(
+        parseFloat(parsedSubtitles[currentSubtitleIndex + 1].startTime) / 1000
+      )
+    }
   }
 
   return (
-    <div>
+    <div onKeyDown={handleKeyDown} tabIndex={0}>
       <ReactPlayer
+        ref={playerRef}
         playing={isPlaying}
         onProgress={handleProgress}
         url={videoUrl}
@@ -54,6 +80,9 @@ const App = () => {
         height="auto"
         config={{
           file: {
+            attributes: {
+              disablekeydown: "true",
+            },
             tracks: [
               {
                 kind: "subtitles",

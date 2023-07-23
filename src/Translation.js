@@ -4,7 +4,7 @@ const Translation = ({ text }) => {
   const [translation, setTranslation] = useState(null)
 
   async function translateWord(word) {
-    const language = "en"
+    const language = "auto"
     const response = await fetch(
       `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${language}&tl=uk&dt=t&q=${encodeURIComponent(
         word

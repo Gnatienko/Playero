@@ -31,7 +31,12 @@ const App = () => {
     fetch(subtitlesFileUrl)
       .then((response) => response.text())
       .then((data) => {
-        setParsedSubtitles(SubtitlesParser.fromSrt(data, true))
+        setParsedSubtitles(
+          SubtitlesParser.fromSrt(
+            data.replace(/<i>|<\/i>|<br\s*\/?>/gi, " "),
+            true
+          )
+        )
       })
   }, [subtitlesFileUrl])
 

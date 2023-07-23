@@ -1,0 +1,16 @@
+const videoUrl =
+  "https://iandevlin.github.io/mdn/video-player-with-captions/video/sintel-short.mp4"
+
+const subtitlesUrl = "/subs.vtt"
+
+moment(parsedSubtitles[0].startTime, "HH:mm:ss,SSS").diff(
+  moment().startOf("day"),
+  "seconds",
+  true
+)
+
+const formattedPlayedSeconds = moment
+  .utc(moment.duration(state.playedSeconds, "seconds").as("milliseconds"))
+  .format("HH:mm:ss,SSS")
+
+const currentSubtitles = parsedSubtitles.find(

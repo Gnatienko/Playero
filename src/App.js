@@ -58,7 +58,7 @@ const App = () => {
   const handleKeyDown = (event) => {
     if (event.key === "1") {
       playerRef.current.seekTo(
-        parseFloat(parsedSubtitles[currentSubtitleIndex].startTime) / 1000
+        parseFloat(parsedSubtitles[currentSubtitleIndex - 1].startTime) / 1000
       )
     }
     if (event.key === "2") {

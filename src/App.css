@@ -1,6 +1,22 @@
-/* App.css */
-::selection {
-  background-color: yellow; /* Цвет подсветки выделенного текста */
-  color: black; /* Цвет текста в выделенной области */
+*:focus {
+  outline: none;
 }
 
+.player{
+display: flex;
+justify-content: center;
+height: 100vh ;}
+
+.subtitles{
+  position: absolute;
+  bottom: 15%;
+  left: 0;
+  right: 0;
+  font-size: 24px;
+  text-align: center;
+  color: white;
+}
+
+label {
+  color: gray;
+}

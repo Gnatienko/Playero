@@ -2,14 +2,15 @@ import React, { useState, useEffect, useRef } from "react"
 import ReactPlayer from "react-player"
 import SubtitlesParser from "subtitles-parser"
 import Line from "./Line"
-
-const videoUrl =
-  "/The.Big.Bang.Theory.S07E13.720p.HDTV.x264-maximersk_1542749704_720p.mp4" //"/sintel-short.mp4" // "https://iandevlin.github.io/mdn/video-player-with-captions/video/sintel-short.mp4"
-const subtitlesUrl =
-  "The.Big.Bang.Theory.S07E13.720p.HDTV.x264-maximersk_1542749704_720p.srt" // "/subs.vtt"
+import "./App.css"
 
 const App = () => {
   const playerRef = useRef(null)
+  const fileInputRef = useRef(null)
+  const subtitlesFileInputRef = useRef(null)
+
+  const [fileUrl, setFileUrl] = useState("")
+  const [subtitlesFileUrl, setSubtitlesFileUrl] = useState("")
   const [currentSubtitle, setCurrentSubtitle] = useState()
   const [currentSubtitleIndex, setCurrentSubtitleIndex] = useState(0)
 
@@ -19,21 +20,20 @@ const App = () => {
   const [isPlaying, setIsPlaying] = useState(false)
 
   const handleMouseEnter = () => {
-    setIsPlaying(false) // Устанавливаем состояние, чтобы остановить воспроизведение
+    setIsPlaying(false)
   }
 
-  // Обработчик события, вызываемый при уходе мыши
   const handleMouseLeave = () => {
-    setIsPlaying(true) // Возвращаем воспроизведение
+    setIsPlaying(true)
   }
 
   useEffect(() => {
-    fetch(subtitlesUrl)
+    fetch(subtitlesFileUrl)
       .then((response) => response.text())
       .then((data) => {
         setParsedSubtitles(SubtitlesParser.fromSrt(data, true))
       })
-  }, [])
+  }, [subtitlesFileUrl])
 
   const handleProgress = (state) => {
     const PlayedMillisecond = state.playedSeconds * 1000
@@ -43,7 +43,6 @@ const App = () => {
         subtitle.endTime > PlayedMillisecond
     )
     setCurrentSubtitle(currentLine ? currentLine.text.split(" ") : "")
-    console.log(currentSubtitle)
 
     const currentLineIndex =
       parsedSubtitles.findIndex(
@@ -52,7 +51,6 @@ const App = () => {
           subtitle.endTime > PlayedMillisecond
       ) - 1
     setCurrentSubtitleIndex(currentLineIndex)
-    console.log(currentSubtitleIndex)
   }
 
   const handleKeyDown = (event) => {
@@ -68,35 +66,65 @@ const App = () => {
     }
   }
 
+  const handleFileChange = () => {
+    const file = fileInputRef.current.files[0]
+    if (file) {
+      const fileURL = URL.createObjectURL(file)
+      setFileUrl(fileURL)
+    }
+  }
+
+  const handleSubtitlesFileChange = () => {
+    const file = subtitlesFileInputRef.current.files[0]
+    if (file) {
+      const subtitlesFileURL = URL.createObjectURL(file)
+      setSubtitlesFileUrl(subtitlesFileURL)
+    }
+  }
+
   return (
-    <div onKeyDown={handleKeyDown} tabIndex={0}>
-      <ReactPlayer
-        ref={playerRef}
-        playing={isPlaying}
-        onProgress={handleProgress}
-        url={videoUrl}
-        controls={true}
-        width="100%"
-        height="auto"
-        config={{
-          file: {
-            attributes: {
-              disablekeydown: "true",
-            },
-            tracks: [
-              {
-                kind: "subtitles",
-                src: subtitlesUrl,
-                srcLang: "en",
-                default: true,
+    <div style={{ background: "black" }}>
+      <div onKeyDown={handleKeyDown} className="player">
+        <ReactPlayer
+          ref={playerRef}
+          playing={isPlaying}
+          onProgress={handleProgress}
+          url={fileUrl}
+          controls={true}
+          width="100%"
+          height="100%"
+          config={{
+            file: {
+              attributes: {
+                disablekeydown: "true",
               },
-            ],
-          },
-        }}
-      />
-      <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+              tracks: [
+                {
+                  kind: "subtitles",
+                  src: subtitlesFileUrl,
+                  srcLang: "en",
+                  default: true,
+                },
+              ],
+            },
+          }}
+        />
+      </div>
+      <div
+        className="subtitles"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
         <Line words={currentSubtitle} />
       </div>
+      <label for="file">Video</label>
+      <input type="file" ref={fileInputRef} onChange={handleFileChange} />
+      <label for="file">Subtitles</label>
+      <input
+        type="file"
+        ref={subtitlesFileInputRef}
+        onChange={handleSubtitlesFileChange}
+      />
     </div>
   )
 }

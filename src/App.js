@@ -95,10 +95,9 @@ const App = () => {
   }
 
   return (
-    <div style={{ background: "black" }}>
-      <div onKeyDown={handleKeyDown} className="player">
+    <div onKeyDown={handleKeyDown} style={{ background: "black" }}>
+      <div className="player">
         <ReactPlayer
-          onKeyDown={handleKeyDown}
           ref={playerRef}
           playing={isPlaying}
           onProgress={handleProgress}

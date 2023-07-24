@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
+import "./TranslationTooltip.css"
 
-const Translation = ({ text }) => {
+const TranslationTooltip = ({ text }) => {
   const [translation, setTranslation] = useState(null)
 
   useEffect(() => {
@@ -24,7 +25,7 @@ const Translation = ({ text }) => {
     translateWord(text)
   }, [text])
 
-  return <div className="content">{translation}</div>
+  return <div className="tooltip">{translation}</div>
 }
 
-export default Translation
+export default TranslationTooltip

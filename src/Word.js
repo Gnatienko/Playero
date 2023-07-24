@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import Translation from "./Translation"
+import TranslationTooltip from "./TranslationTooltip"
 
 import "./Word.css"
 
@@ -22,8 +22,8 @@ const Word = ({ text }) => {
     >
       <div className="content">{text}</div>
       {showTranslation && (
-        <div className="tooltip">
-          <Translation text={text} />
+        <div>
+          <TranslationTooltip text={text} />
         </div>
       )}
     </div>

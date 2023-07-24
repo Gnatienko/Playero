@@ -8,13 +8,15 @@ justify-content: center;
 height: 100vh ;}
 
 .subtitles{
+  background: rgba(0, 0, 0, 0.5);
   position: absolute;
-  bottom: 15%;
+  bottom: 10%;
   left: 0;
   right: 0;
-  font-size: 24px;
+  font-size: 36px;
   text-align: center;
   color: white;
+  padding: 1%;
 }
 
 label {

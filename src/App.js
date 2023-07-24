@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from "react"
 import ReactPlayer from "react-player"
 import SubtitlesParser from "subtitles-parser"
-import Line from "./Line"
 import "./App.css"
+import FileInput from "./FileInput"
+import Subtitles from "./Subtitles"
 
 const App = () => {
   const playerRef = useRef(null)
@@ -13,7 +14,6 @@ const App = () => {
   const [subtitlesFileUrl, setSubtitlesFileUrl] = useState("")
   const [currentSubtitle, setCurrentSubtitle] = useState()
   const [currentSubtitleIndex, setCurrentSubtitleIndex] = useState(0)
-
   const [parsedSubtitles, setParsedSubtitles] = useState([
     { startTime: 1, text: 1 },
   ])
@@ -48,7 +48,6 @@ const App = () => {
         subtitle.endTime > PlayedMillisecond
     )
     setCurrentSubtitle(currentLine ? currentLine.text.split(" ") : "")
-
     const currentLineIndex =
       parsedSubtitles.findIndex(
         (subtitle) =>
@@ -59,15 +58,20 @@ const App = () => {
   }
 
   const handleKeyDown = (event) => {
-    if (event.key === "1") {
-      playerRef.current.seekTo(
-        parseFloat(parsedSubtitles[currentSubtitleIndex - 1].startTime) / 1000
-      )
-    }
-    if (event.key === "2") {
-      playerRef.current.seekTo(
-        parseFloat(parsedSubtitles[currentSubtitleIndex + 1].startTime) / 1000
-      )
+    // todo fix cases currentSubtitleIndex -1,0, max+1
+    try {
+      if (event.key === "1") {
+        playerRef.current.seekTo(
+          parseFloat(parsedSubtitles[currentSubtitleIndex - 1].startTime) / 1000
+        )
+      }
+      if (event.key === "2") {
+        playerRef.current.seekTo(
+          parseFloat(parsedSubtitles[currentSubtitleIndex + 1].startTime) / 1000
+        )
+      }
+    } catch (error) {
+      console.error("Error handling key press:", error)
     }
   }
 
@@ -91,6 +95,7 @@ const App = () => {
     <div style={{ background: "black" }}>
       <div onKeyDown={handleKeyDown} className="player">
         <ReactPlayer
+          onKeyDown={handleKeyDown}
           ref={playerRef}
           playing={isPlaying}
           onProgress={handleProgress}
@@ -100,19 +105,20 @@ const App = () => {
           height="100%"
         />
       </div>
-      <div
-        className="subtitles"
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-      >
-        <Line words={currentSubtitle} />
-      </div>
-      <label for="file">Video</label>
-      <input type="file" ref={fileInputRef} onChange={handleFileChange} />
-      <label for="file">Subtitles</label>
-      <input
-        type="file"
-        ref={subtitlesFileInputRef}
+
+      <Subtitles
+        currentSubtitle={currentSubtitle}
+        handleMouseEnter={handleMouseEnter}
+        handleMouseLeave={handleMouseLeave}
+      />
+      <FileInput
+        label="Video"
+        inputRef={fileInputRef}
+        onChange={handleFileChange}
+      />
+      <FileInput
+        label="Subtitles"
+        inputRef={subtitlesFileInputRef}
         onChange={handleSubtitlesFileChange}
       />
     </div>

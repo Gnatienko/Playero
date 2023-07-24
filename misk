@@ -14,3 +14,29 @@ const formattedPlayedSeconds = moment
   .format("HH:mm:ss,SSS")
 
 const currentSubtitles = parsedSubtitles.find(
+
+
+  <div style={{ background: "black" }}>
+      <Player
+        fileUrl={fileUrl}
+        isPlaying={isPlaying}
+        handleProgress={handleProgress}
+        onKeyDown={handleKeyDown}
+      />
+
+      <Subtitles
+        currentSubtitle={currentSubtitle}
+        handleMouseEnter={handleMouseEnter}
+        handleMouseLeave={handleMouseLeave}
+      />
+
+      <FileInput
+        label="Video"
+        inputRef={fileInputRef}
+        onChange={handleFileChange}
+      />
+      <FileInput
+        label="Subtitles"
+        inputRef={subtitlesFileInputRef}
+        onChange={handleSubtitlesFileChange}
+      />

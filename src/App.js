@@ -12,12 +12,13 @@ const App = () => {
 
   const [fileUrl, setFileUrl] = useState("")
   const [subtitlesFileUrl, setSubtitlesFileUrl] = useState("")
-  const [currentSubtitle, setCurrentSubtitle] = useState()
+  const [currentSubtitle, setCurrentSubtitle] = useState([])
   const [currentSubtitleIndex, setCurrentSubtitleIndex] = useState(0)
   const [parsedSubtitles, setParsedSubtitles] = useState([
     { startTime: 1, text: 1 },
   ])
   const [isPlaying, setIsPlaying] = useState(false)
+  const [showFullTranslation, setShowFullTranslation] = useState(false)
 
   const handleMouseEnter = () => {
     setIsPlaying(false)
@@ -50,7 +51,7 @@ const App = () => {
         subtitle.startTime < PlayedMillisecond &&
         subtitle.endTime > PlayedMillisecond
     )
-    setCurrentSubtitle(currentLine ? currentLine.text.split(" ") : "")
+    setCurrentSubtitle(currentLine ? currentLine.text.split(" ") : [])
     const currentLineIndex =
       parsedSubtitles.findIndex(
         (subtitle) =>
@@ -73,8 +74,24 @@ const App = () => {
           parseFloat(parsedSubtitles[currentSubtitleIndex + 1].startTime) / 1000
         )
       }
+      if (event.key === "t") {
+        setIsPlaying(false)
+
+        setShowFullTranslation(true)
+      }
     } catch (error) {
       console.error("Error handling key press:", error)
+    }
+  }
+
+  const handleKeyUp = (event) => {
+    try {
+      if (event.key === "t") {
+        setIsPlaying(true)
+        setShowFullTranslation(false)
+      }
+    } catch (error) {
+      console.error("Error handling key release:", error)
     }
   }
 
@@ -95,7 +112,11 @@ const App = () => {
   }
 
   return (
-    <div onKeyDown={handleKeyDown} style={{ background: "black" }}>
+    <div
+      onKeyDown={handleKeyDown}
+      onKeyUp={handleKeyUp}
+      style={{ background: "black" }}
+    >
       <div className="player">
         <ReactPlayer
           ref={playerRef}
@@ -112,6 +133,7 @@ const App = () => {
         currentSubtitle={currentSubtitle}
         handleMouseEnter={handleMouseEnter}
         handleMouseLeave={handleMouseLeave}
+        showTranslation={showFullTranslation}
       />
       <FileInput
         label="Video"

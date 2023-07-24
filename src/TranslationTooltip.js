@@ -14,7 +14,12 @@ const TranslationTooltip = ({ text }) => {
           )}`
         )
         const data = await response.json()
-        const translatedText = data?.[0]?.[0]?.[0]
+
+        const translatedText = data?.[0]
+          .map((secondLevelArray) => {
+            return secondLevelArray[0]
+          })
+          .join(" ")
         setTranslation(translatedText)
       } catch (error) {
         console.error("Error translating word:", error)

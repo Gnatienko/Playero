@@ -39,7 +39,6 @@ const App = () => {
           ...subtitles,
           startTime: subtitles.startTime + subtitlesAdjustmentMils,
         }))
-        console.log(parsedSubtitles)
         setParsedSubtitles(parsedSubtitles)
       })
   }, [subtitlesFileUrl])

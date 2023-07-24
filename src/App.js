@@ -98,21 +98,6 @@ const App = () => {
           controls={true}
           width="100%"
           height="100%"
-          config={{
-            file: {
-              attributes: {
-                disablekeydown: "true",
-              },
-              tracks: [
-                {
-                  kind: "subtitles",
-                  src: subtitlesFileUrl,
-                  srcLang: "en",
-                  default: true,
-                },
-              ],
-            },
-          }}
         />
       </div>
       <div

@@ -28,15 +28,19 @@ const App = () => {
   }
 
   useEffect(() => {
+    const subtitlesAdjustmentMils = -1000
     fetch(subtitlesFileUrl)
       .then((response) => response.text())
       .then((data) => {
-        setParsedSubtitles(
-          SubtitlesParser.fromSrt(
-            data.replace(/<i>|<\/i>|<br\s*\/?>/gi, " "),
-            true
-          )
-        )
+        const parsedSubtitles = SubtitlesParser.fromSrt(
+          data.replace(/<i>|<\/i>|<br\s*\/?>/gi, " "),
+          true
+        ).map((subtitles) => ({
+          ...subtitles,
+          startTime: subtitles.startTime + subtitlesAdjustmentMils,
+        }))
+        console.log(parsedSubtitles)
+        setParsedSubtitles(parsedSubtitles)
       })
   }, [subtitlesFileUrl])
 

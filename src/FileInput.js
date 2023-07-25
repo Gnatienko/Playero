@@ -1,4 +1,5 @@
 import React from "react"
+import "./FileInput.css"
 
 const FileInput = ({ label, inputRef, onChange }) => {
   return (

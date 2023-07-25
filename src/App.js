@@ -76,7 +76,6 @@ const App = () => {
       }
       if (event.key === "t") {
         setIsPlaying(false)
-
         setShowFullTranslation(true)
       }
     } catch (error) {

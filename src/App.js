@@ -29,7 +29,7 @@ const App = () => {
   }
 
   useEffect(() => {
-    const subtitlesAdjustmentMils = -1000
+    const subtitlesAdjustmentMils = 1 //todo, adjustment not working
     fetch(subtitlesFileUrl)
       .then((response) => response.text())
       .then((data) => {
@@ -64,17 +64,22 @@ const App = () => {
   const handleKeyDown = (event) => {
     // todo fix cases currentSubtitleIndex -1,0, max+1
     try {
-      if (event.key === "1") {
+      if (event.key === "," || event.key === "б") {
         playerRef.current.seekTo(
           parseFloat(parsedSubtitles[currentSubtitleIndex - 1].startTime) / 1000
         )
       }
-      if (event.key === "2") {
+      if (event.key === "." || event.key === "ю") {
         playerRef.current.seekTo(
           parseFloat(parsedSubtitles[currentSubtitleIndex + 1].startTime) / 1000
         )
       }
-      if (event.key === "t") {
+      if (
+        event.key === "t" ||
+        event.key === "T" ||
+        event.key === "е" ||
+        event.key === "Е"
+      ) {
         setIsPlaying(false)
         setShowFullTranslation(true)
       }
@@ -85,7 +90,12 @@ const App = () => {
 
   const handleKeyUp = (event) => {
     try {
-      if (event.key === "t") {
+      if (
+        event.key === "t" ||
+        event.key === "T" ||
+        event.key === "е" ||
+        event.key === "Е"
+      ) {
         setIsPlaying(true)
         setShowFullTranslation(false)
       }
@@ -127,7 +137,6 @@ const App = () => {
           height="100%"
         />
       </div>
-
       <Subtitles
         currentSubtitle={currentSubtitle}
         handleMouseEnter={handleMouseEnter}
@@ -144,6 +153,10 @@ const App = () => {
         inputRef={subtitlesFileInputRef}
         onChange={handleSubtitlesFileChange}
       />
+      <span className="keyword">
+        T - translate replica, &nbsp;&lt; - previous replica, &nbsp;&gt; - next
+        replica
+      </span>
     </div>
   )
 }

@@ -6,8 +6,6 @@ import FileInput from "./FileInput"
 import Subtitles from "./Subtitles"
 import LanguageDropDown from "./LanguageDropDown.js"
 
-//todo add en lang for translation
-
 const App = () => {
   const playerRef = useRef(null)
   const fileInputRef = useRef(null)

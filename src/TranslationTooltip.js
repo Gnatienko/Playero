@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import "./TranslationTooltip.css"
 
-const TranslationTooltip = ({ text }) => {
+const TranslationTooltip = ({ text, translationLanguage }) => {
   const [translation, setTranslation] = useState(null)
 
   useEffect(() => {
@@ -9,7 +9,7 @@ const TranslationTooltip = ({ text }) => {
       const language = "auto"
       try {
         const response = await fetch(
-          `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${language}&tl=uk&dt=t&q=${encodeURIComponent(
+          `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${language}&tl=${translationLanguage}&dt=t&q=${encodeURIComponent(
             word
           )}`
         )
@@ -28,7 +28,7 @@ const TranslationTooltip = ({ text }) => {
     }
 
     translateWord(text)
-  }, [text])
+  }, [text, translationLanguage])
 
   return <div className="tooltip">{translation}</div>
 }

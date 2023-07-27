@@ -4,11 +4,15 @@ import SubtitlesParser from "subtitles-parser"
 import "./App.css"
 import FileInput from "./FileInput"
 import Subtitles from "./Subtitles"
+import LanguageDropDown from "./LanguageDropDown.js"
+
+//todo add en lang for translation
 
 const App = () => {
   const playerRef = useRef(null)
   const fileInputRef = useRef(null)
   const subtitlesFileInputRef = useRef(null)
+  const [translationLanguage, setTranslationLanguage] = useState("uk")
 
   const [fileUrl, setFileUrl] = useState("")
   const [subtitlesFileUrl, setSubtitlesFileUrl] = useState("")
@@ -120,6 +124,10 @@ const App = () => {
     }
   }
 
+  const handleOnChangeLanguage = (event) => {
+    setTranslationLanguage(event.target.value)
+  }
+
   return (
     <div
       onKeyDown={handleKeyDown}
@@ -142,6 +150,7 @@ const App = () => {
         handleMouseEnter={handleMouseEnter}
         handleMouseLeave={handleMouseLeave}
         showTranslation={showFullTranslation}
+        translationLanguage={translationLanguage}
       />
       <FileInput
         label="Video"
@@ -153,9 +162,14 @@ const App = () => {
         inputRef={subtitlesFileInputRef}
         onChange={handleSubtitlesFileChange}
       />
+      <LanguageDropDown
+        translationLanguage={translationLanguage}
+        handleOnChangeLanguage={handleOnChangeLanguage}
+      />
+
       <span className="keyword">
-        T - translate replica, &nbsp;&lt; - previous replica, &nbsp;&gt; - next
-        replica
+        &nbsp;&nbsp;&nbsp; T - translate replica, &nbsp;&lt; - previous replica,
+        &nbsp;&gt; - next replica
       </span>
     </div>
   )

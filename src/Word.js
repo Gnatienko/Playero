@@ -3,7 +3,7 @@ import TranslationTooltip from "./TranslationTooltip"
 
 import "./Word.css"
 
-const Word = ({ text }) => {
+const Word = ({ text, translationLanguage }) => {
   const [showTranslation, setShowTranslation] = useState(false)
 
   const handleMouseEnter = () => {
@@ -23,7 +23,10 @@ const Word = ({ text }) => {
       <div className="content">{text}</div>
       {showTranslation && (
         <div>
-          <TranslationTooltip text={text} />
+          <TranslationTooltip
+            text={text}
+            translationLanguage={translationLanguage}
+          />
         </div>
       )}
     </div>

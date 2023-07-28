@@ -70,10 +70,16 @@ const App = () => {
         playerRef.current.seekTo(
           parseFloat(parsedSubtitles[currentSubtitleIndex - 1].startTime) / 1000
         )
+        setCurrentSubtitle(
+          parsedSubtitles[currentSubtitleIndex - 1].text.split(" ")
+        )
       }
       if (event.key === "." || event.key === "ю") {
         playerRef.current.seekTo(
           parseFloat(parsedSubtitles[currentSubtitleIndex + 1].startTime) / 1000
+        )
+        setCurrentSubtitle(
+          parsedSubtitles[currentSubtitleIndex + 1].text.split(" ")
         )
       }
       if (

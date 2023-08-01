@@ -5,6 +5,7 @@ import "./App.css"
 import FileInput from "./FileInput"
 import Subtitles from "./Subtitles"
 import LanguageDropDown from "./LanguageDropDown.js"
+import Legend from "./Legend"
 
 const App = () => {
   const playerRef = useRef(null)
@@ -170,11 +171,7 @@ const App = () => {
         translationLanguage={translationLanguage}
         handleOnChangeLanguage={handleOnChangeLanguage}
       />
-
-      <span className="keyword">
-        &nbsp;&nbsp;&nbsp; T - translate replica, &nbsp;&lt; - previous replica,
-        &nbsp;&gt; - next replica
-      </span>
+      <Legend />
     </div>
   )
 }

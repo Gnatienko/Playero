@@ -2,12 +2,16 @@ import React from "react"
 import Word from "./Word"
 import "./Line.css"
 
-const Line = ({ words, translationLanguage }) => {
+const Line = ({ words, translationLanguage, translationLanguageFrom }) => {
   return (
     <div className="line">
       {words
         ? words.map((word, index) => (
-            <Word text={word} translationLanguage={translationLanguage} />
+            <Word
+              text={word}
+              translationLanguage={translationLanguage}
+              translationLanguageFrom={translationLanguageFrom}
+            />
           ))
         : ""}
     </div>

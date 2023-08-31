@@ -16,6 +16,7 @@ const LanguageDropDown = ({
       >
         <option value="en">en</option>
         <option value="uk">ua</option>
+        <option value="sp">sp</option>
       </select>
     </>
   )

@@ -12,6 +12,7 @@ const App = () => {
   const fileInputRef = useRef(null)
   const subtitlesFileInputRef = useRef(null)
   const [translationLanguage, setTranslationLanguage] = useState("uk")
+  const [translationLanguageFrom, setTranslationLanguageFrom] = useState("uk")
 
   const [fileUrl, setFileUrl] = useState("")
   const [subtitlesFileUrl, setSubtitlesFileUrl] = useState("")
@@ -132,6 +133,9 @@ const App = () => {
   const handleOnChangeLanguage = (event) => {
     setTranslationLanguage(event.target.value)
   }
+  const handleOnChangeLanguageFrom = (event) => {
+    setTranslationLanguageFrom(event.target.value)
+  }
 
   return (
     <div
@@ -168,6 +172,13 @@ const App = () => {
         onChange={handleSubtitlesFileChange}
       />
       <LanguageDropDown
+        title="translation from"
+        translationLanguage={translationLanguageFrom}
+        handleOnChangeLanguage={handleOnChangeLanguageFrom}
+      />
+      <Legend />
+      <LanguageDropDown
+        title="translation to"
         translationLanguage={translationLanguage}
         handleOnChangeLanguage={handleOnChangeLanguage}
       />

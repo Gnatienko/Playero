@@ -68,7 +68,12 @@ const App = () => {
   const handleKeyDown = (event) => {
     // todo fix cases currentSubtitleIndex -1,0, max+1
     try {
-      if (event.key === "," || event.key === "б" || event.key === "Delete") {
+      if (
+        event.key === "," ||
+        event.key === "б" ||
+        event.key === "Delete" ||
+        event.button === 0
+      ) {
         playerRef.current.seekTo(
           parseFloat(parsedSubtitles[currentSubtitleIndex - 1].startTime) / 1000
         )

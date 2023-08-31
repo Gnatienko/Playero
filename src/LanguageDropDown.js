@@ -14,9 +14,9 @@ const LanguageDropDown = ({
         value={translationLanguage}
         onChange={handleOnChangeLanguage}
       >
-        <option value="en">en</option>
-        <option value="uk">ua</option>
-        <option value="sp">sp</option>
+        <option value="en">English</option>
+        <option value="uk">украънська</option>
+        <option value="es">español</option>
         <option value="auto">auto</option>
       </select>
     </>

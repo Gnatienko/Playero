@@ -1,10 +1,14 @@
 import React from "react"
 //import "./FileInput.css"
 
-const LanguageDropDown = ({ translationLanguage, handleOnChangeLanguage }) => {
+const LanguageDropDown = ({
+  translationLanguage,
+  handleOnChangeLanguage,
+  title,
+}) => {
   return (
     <>
-      <label>translation</label>
+      <label>{title}</label>
       <select
         id="language"
         value={translationLanguage}

@@ -12,7 +12,7 @@ const App = () => {
   const fileInputRef = useRef(null)
   const subtitlesFileInputRef = useRef(null)
   const [translationLanguage, setTranslationLanguage] = useState("uk")
-  const [translationLanguageFrom, setTranslationLanguageFrom] = useState("uk")
+  const [translationLanguageFrom, setTranslationLanguageFrom] = useState("es")
 
   const [fileUrl, setFileUrl] = useState("")
   const [subtitlesFileUrl, setSubtitlesFileUrl] = useState("")
@@ -176,7 +176,6 @@ const App = () => {
         translationLanguage={translationLanguageFrom}
         handleOnChangeLanguage={handleOnChangeLanguageFrom}
       />
-      <Legend />
       <LanguageDropDown
         title="translation to"
         translationLanguage={translationLanguage}

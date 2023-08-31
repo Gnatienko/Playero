@@ -32,7 +32,7 @@ const App = () => {
   }
 
   useEffect(() => {
-    const subtitlesAdjustmentMils = 1 //todo, adjustment not working
+    const subtitlesAdjustmentMils = 1 //todo, subs adjustment not working
     fetch(subtitlesFileUrl)
       .then((response) => response.text())
       .then((data) => {

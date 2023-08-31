@@ -85,6 +85,8 @@ const App = () => {
         )
       }
       if (
+        event.key === "я" ||
+        event.key === "z" ||
         event.key === "t" ||
         event.key === "T" ||
         event.key === "е" ||
@@ -101,6 +103,8 @@ const App = () => {
   const handleKeyUp = (event) => {
     try {
       if (
+        event.key === "я" ||
+        event.key === "z" ||
         event.key === "t" ||
         event.key === "T" ||
         event.key === "е" ||

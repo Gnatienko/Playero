@@ -11,7 +11,7 @@ const App = () => {
   const playerRef = useRef(null)
   const fileInputRef = useRef(null)
   const subtitlesFileInputRef = useRef(null)
-  const [translationLanguage, setTranslationLanguage] = useState("uk")
+  const [translationLanguage, setTranslationLanguage] = useState("en")
   const [translationLanguageFrom, setTranslationLanguageFrom] = useState("auto")
 
   const [fileUrl, setFileUrl] = useState("")

@@ -9,6 +9,7 @@ const Subtitles = ({
   handleMouseLeave,
   showTranslation,
   translationLanguage,
+  translationLanguageFrom,
 }) => {
   const combinedCurrentSubtitle = currentSubtitle.join(" ")
   return (
@@ -17,12 +18,17 @@ const Subtitles = ({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <Line words={currentSubtitle} translationLanguage={translationLanguage} />
+      <Line
+        words={currentSubtitle}
+        translationLanguage={translationLanguage}
+        translationLanguageFrom={translationLanguageFrom}
+      />
       {showTranslation && (
         <div>
           <TranslationTooltip
             text={combinedCurrentSubtitle}
             translationLanguage={translationLanguage}
+            translationLanguageFrom={translationLanguageFrom}
           />
         </div>
       )}

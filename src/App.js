@@ -12,7 +12,7 @@ const App = () => {
   const fileInputRef = useRef(null)
   const subtitlesFileInputRef = useRef(null)
   const [translationLanguage, setTranslationLanguage] = useState("uk")
-  const [translationLanguageFrom, setTranslationLanguageFrom] = useState("es")
+  const [translationLanguageFrom, setTranslationLanguageFrom] = useState("auto")
 
   const [fileUrl, setFileUrl] = useState("")
   const [subtitlesFileUrl, setSubtitlesFileUrl] = useState("")
@@ -160,6 +160,7 @@ const App = () => {
         handleMouseLeave={handleMouseLeave}
         showTranslation={showFullTranslation}
         translationLanguage={translationLanguage}
+        translationLanguageFrom={translationLanguageFrom}
       />
       <FileInput
         label="Video"

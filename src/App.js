@@ -71,7 +71,7 @@ const App = () => {
       if (
         event.key === "," ||
         event.key === "б" ||
-        event.key === "Delete" ||
+        event.key === "Backspace" ||
         event.button === 0
       ) {
         playerRef.current.seekTo(

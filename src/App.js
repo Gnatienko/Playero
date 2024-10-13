@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from "react"
 import ReactPlayer from "react-player"
 import SubtitlesParser from "subtitles-parser"
 import "./App.css"
-import Menu from "./Menu.js"
+import Menu from "./Menu/Menu.js"
 import Subtitles from "./Subtitles"
 import { handleKeyDown, handleKeyUp } from "./keyboardHandler.js" // Import the function
 

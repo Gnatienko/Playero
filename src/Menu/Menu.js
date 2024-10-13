@@ -3,6 +3,7 @@ import FileInput from "./FileInput"
 import LanguageDropDown from "./LanguageDropDown"
 import Legend from "./Legend"
 import "./Menu.css"
+import Cookies from "js-cookie"
 
 const Menu = ({
   setFileUrl,
@@ -33,10 +34,16 @@ const Menu = ({
 
   const handleOnChangeLanguage = (event) => {
     setTranslationLanguage(event.target.value)
+    Cookies.set("translationLanguage", event.target.value, {
+      expires: 100,
+    })
   }
 
   const handleOnChangeLanguageFrom = (event) => {
     setTranslationLanguageFrom(event.target.value)
+    Cookies.set("translationLanguageFrom", event.target.value, {
+      expires: 100,
+    })
   }
 
   return (

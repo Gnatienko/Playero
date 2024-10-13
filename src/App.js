@@ -45,7 +45,7 @@ const App = () => {
   }
 
   useEffect(() => {
-    const subtitlesAdjustmentMils = 1 // todo, subs adjustment not working
+    const subtitlesAdjustmentMils = 0 // todo, add to UI
     fetch(subtitlesFileUrl)
       .then((response) => {
         if (!response.ok) {
@@ -56,19 +56,21 @@ const App = () => {
         return response.text()
       })
       .then((data) => {
-        const parsedSubtitles = SubtitlesParser.fromSrt(
-          data.replace(/<i>|<\/i>|<br\s*\/?>/gi, " "), // todo add /n
-          true
-        ).map((subtitles) => ({
-          ...subtitles,
-          startTime: subtitles.startTime + subtitlesAdjustmentMils,
-        }))
+        const parsedSubtitles = SubtitlesParser.fromSrt(data, true).map(
+          (subtitles) => ({
+            ...subtitles,
+            startTime: subtitles.startTime + subtitlesAdjustmentMils,
+            endTime: subtitles.endTime + subtitlesAdjustmentMils,
+            text: subtitles.text.replace(/[\r\n]+|<i>|<\/i>|<br\s*\/?>/gi, " "),
+          })
+        )
         setParsedSubtitles(parsedSubtitles)
       })
       .catch((error) => {
         console.error("Parsing error:", error)
       })
-  }, [subtitlesFileUrl])
+    console.log(parsedSubtitles)
+  }, [subtitlesFileUrl, parsedSubtitles])
 
   useEffect(() => {
     const handleScroll = () => {

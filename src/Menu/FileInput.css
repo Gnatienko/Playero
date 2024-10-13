@@ -1,3 +1,4 @@
-label {
-    color: gray;
-  }
+.custom-file-input {
+  background-color: rgb(19, 204, 210);
+  padding: 5px;
+}

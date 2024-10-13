@@ -2,6 +2,7 @@ import React, { useRef } from "react"
 import FileInput from "./FileInput"
 import LanguageDropDown from "./LanguageDropDown"
 import Legend from "./Legend"
+import "./Menu.css"
 
 const Menu = ({
   setFileUrl,

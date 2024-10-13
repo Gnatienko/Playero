@@ -1,0 +1,6 @@
+.menu {
+  display: flex;
+  justify-content: space-between; /* Разделяет элементы равномерно по ширине */
+  align-items: center; /* Вертикальное центрирование элементов */
+  padding: 10px; /* Добавьте отступы по вашему усмотрению */
+}

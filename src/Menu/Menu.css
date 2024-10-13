@@ -5,3 +5,13 @@
   padding: 10px;
   border-top: 2px solid gray;
 }
+.elements-container {
+  display: inline-flex;
+  align-items: center;
+
+  justify-content: space-between;
+}
+
+.elements-container > * {
+  margin-right: 3rem;
+}

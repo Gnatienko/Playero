@@ -5,7 +5,7 @@ import SubtitlesParser from "subtitles-parser"
 import "./App.css"
 import Menu from "./Menu.js"
 import Subtitles from "./Subtitles"
-import handleKeyDown from "./keyboardHandler.js" // Import the function
+import { handleKeyDown, handleKeyUp } from "./keyboardHandler.js" // Import the function
 
 const App = () => {
   const playerRef = useRef(null)
@@ -62,24 +62,6 @@ const App = () => {
     setCurrentSubtitleIndex(currentLineIndex)
   }
 
-  const handleKeyUp = (event) => {
-    try {
-      if (
-        event.key === "я" ||
-        event.key === "z" ||
-        event.key === "t" ||
-        event.key === "T" ||
-        event.key === "е" ||
-        event.key === "Е"
-      ) {
-        setIsPlaying(true)
-        setShowFullTranslation(false)
-      }
-    } catch (error) {
-      console.error("Error handling key release:", error)
-    }
-  }
-
   return (
     <div
       onKeyDown={(event) =>
@@ -93,7 +75,9 @@ const App = () => {
           setShowFullTranslation
         )
       }
-      onKeyUp={handleKeyUp}
+      onKeyUp={(event) =>
+        handleKeyUp(event, setIsPlaying, setShowFullTranslation)
+      }
       style={{ background: "black" }}
     >
       <div className="player">

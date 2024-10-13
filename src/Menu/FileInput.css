@@ -1,5 +1,6 @@
 .custom-file-input {
-  background-color: rgb(19, 204, 210);
   padding: 3px;
-  border-radius: 3px;
+  border-radius: 5px;
+  border: 2px solid gray;
+  color: gray;
 }

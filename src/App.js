@@ -1,15 +1,16 @@
+// App.js
 import React, { useState, useEffect, useRef } from "react"
 import ReactPlayer from "react-player"
 import SubtitlesParser from "subtitles-parser"
 import "./App.css"
 import Menu from "./Menu.js"
 import Subtitles from "./Subtitles"
+import handleKeyDown from "./keyboardHandler.js" // Import the function
 
 const App = () => {
   const playerRef = useRef(null)
   const [translationLanguage, setTranslationLanguage] = useState("en")
   const [translationLanguageFrom, setTranslationLanguageFrom] = useState("auto")
-
   const [fileUrl, setFileUrl] = useState("")
   const [subtitlesFileUrl, setSubtitlesFileUrl] = useState("")
   const [currentSubtitle, setCurrentSubtitle] = useState([])
@@ -29,7 +30,7 @@ const App = () => {
   }
 
   useEffect(() => {
-    const subtitlesAdjustmentMils = 1 //todo, subs adjustment not working
+    const subtitlesAdjustmentMils = 1 // todo, subs adjustment not working
     fetch(subtitlesFileUrl)
       .then((response) => response.text())
       .then((data) => {
@@ -61,46 +62,6 @@ const App = () => {
     setCurrentSubtitleIndex(currentLineIndex)
   }
 
-  const handleKeyDown = (event) => {
-    // todo fix cases currentSubtitleIndex -1,0, max+1
-    try {
-      if (
-        event.key === "," ||
-        event.key === "б" ||
-        event.key === "Backspace" ||
-        event.button === 0
-      ) {
-        playerRef.current.seekTo(
-          parseFloat(parsedSubtitles[currentSubtitleIndex - 1].startTime) / 1000
-        )
-        setCurrentSubtitle(
-          parsedSubtitles[currentSubtitleIndex - 1].text.split(" ")
-        )
-      }
-      if (event.key === "." || event.key === "ю") {
-        playerRef.current.seekTo(
-          parseFloat(parsedSubtitles[currentSubtitleIndex + 1].startTime) / 1000
-        )
-        setCurrentSubtitle(
-          parsedSubtitles[currentSubtitleIndex + 1].text.split(" ")
-        )
-      }
-      if (
-        event.key === "я" ||
-        event.key === "z" ||
-        event.key === "t" ||
-        event.key === "T" ||
-        event.key === "е" ||
-        event.key === "Е"
-      ) {
-        setIsPlaying(false)
-        setShowFullTranslation(true)
-      }
-    } catch (error) {
-      console.error("Error handling key press:", error)
-    }
-  }
-
   const handleKeyUp = (event) => {
     try {
       if (
@@ -121,7 +82,17 @@ const App = () => {
 
   return (
     <div
-      onKeyDown={handleKeyDown}
+      onKeyDown={(event) =>
+        handleKeyDown(
+          event,
+          playerRef,
+          parsedSubtitles,
+          currentSubtitleIndex,
+          setCurrentSubtitle,
+          setIsPlaying,
+          setShowFullTranslation
+        )
+      }
       onKeyUp={handleKeyUp}
       style={{ background: "black" }}
     >

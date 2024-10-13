@@ -41,26 +41,29 @@ const Menu = ({
 
   return (
     <div className="menu">
-      <FileInput
-        label="Video"
-        inputRef={videoFileInputRef}
-        onChange={handleFileChange}
-      />
-      <FileInput
-        label="Subtitles"
-        inputRef={subtitlesFileInputRef}
-        onChange={handleSubtitlesFileChange}
-      />
-      <LanguageDropDown
-        title="translation from"
-        translationLanguage={translationLanguageFrom}
-        handleOnChangeLanguage={handleOnChangeLanguageFrom}
-      />
-      <LanguageDropDown
-        title="translation to"
-        translationLanguage={translationLanguage}
-        handleOnChangeLanguage={handleOnChangeLanguage}
-      />
+      <div className="elements-container">
+        <FileInput
+          label="Video"
+          inputRef={videoFileInputRef}
+          onChange={handleFileChange}
+        />
+        <FileInput
+          label="Subtitles"
+          inputRef={subtitlesFileInputRef}
+          onChange={handleSubtitlesFileChange}
+        />
+
+        <LanguageDropDown
+          title="translation from"
+          translationLanguage={translationLanguageFrom}
+          handleOnChangeLanguage={handleOnChangeLanguageFrom}
+        />
+        <LanguageDropDown
+          title="translation to"
+          translationLanguage={translationLanguage}
+          handleOnChangeLanguage={handleOnChangeLanguage}
+        />
+      </div>
       <Legend />
     </div>
   )

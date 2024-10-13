@@ -2,14 +2,11 @@ import React, { useState, useEffect, useRef } from "react"
 import ReactPlayer from "react-player"
 import SubtitlesParser from "subtitles-parser"
 import "./App.css"
-import FileInput from "./FileInput"
+import Menu from "./Menu.js"
 import Subtitles from "./Subtitles"
-import LanguageDropDown from "./LanguageDropDown.js"
-import Legend from "./Legend"
 
 const App = () => {
   const playerRef = useRef(null)
-  const fileInputRef = useRef(null)
   const subtitlesFileInputRef = useRef(null)
   const [translationLanguage, setTranslationLanguage] = useState("en")
   const [translationLanguageFrom, setTranslationLanguageFrom] = useState("auto")
@@ -123,14 +120,6 @@ const App = () => {
     }
   }
 
-  const handleFileChange = () => {
-    const file = fileInputRef.current.files[0]
-    if (file) {
-      const fileURL = URL.createObjectURL(file)
-      setFileUrl(fileURL)
-    }
-  }
-
   const handleSubtitlesFileChange = () => {
     const file = subtitlesFileInputRef.current.files[0]
     if (file) {
@@ -171,27 +160,15 @@ const App = () => {
         translationLanguage={translationLanguage}
         translationLanguageFrom={translationLanguageFrom}
       />
-      <FileInput
-        label="Video"
-        inputRef={fileInputRef}
-        onChange={handleFileChange}
-      />
-      <FileInput
-        label="Subtitles"
-        inputRef={subtitlesFileInputRef}
-        onChange={handleSubtitlesFileChange}
-      />
-      <LanguageDropDown
-        title="translation from"
-        translationLanguage={translationLanguageFrom}
-        handleOnChangeLanguage={handleOnChangeLanguageFrom}
-      />
-      <LanguageDropDown
-        title="translation to"
+      <Menu
+        setFileUrl={setFileUrl}
+        subtitlesFileInputRef={subtitlesFileInputRef}
+        handleSubtitlesFileChange={handleSubtitlesFileChange}
         translationLanguage={translationLanguage}
+        translationLanguageFrom={translationLanguageFrom}
         handleOnChangeLanguage={handleOnChangeLanguage}
+        handleOnChangeLanguageFrom={handleOnChangeLanguageFrom}
       />
-      <Legend />
     </div>
   )
 }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react"
 import ReactPlayer from "react-player"
 import SubtitlesParser from "subtitles-parser"
+import Cookies from "js-cookie"
 import "./App.css"
 import Menu from "./Menu/Menu.js"
 import Subtitles from "./Subtitles"
@@ -21,6 +22,19 @@ const App = () => {
   const [isPlaying, setIsPlaying] = useState(false)
   const [showFullTranslation, setShowFullTranslation] = useState(false)
   const [showArrow, setShowArrow] = useState(true)
+
+  useEffect(() => {
+    const savedTranslationLanguage = Cookies.get("translationLanguage")
+    const savedTranslationLanguageFrom = Cookies.get("translationLanguageFrom")
+
+    if (savedTranslationLanguage) {
+      setTranslationLanguage(savedTranslationLanguage)
+    }
+
+    if (savedTranslationLanguageFrom) {
+      setTranslationLanguageFrom(savedTranslationLanguageFrom)
+    }
+  }, [])
 
   const handleMouseEnter = () => {
     setIsPlaying(false)

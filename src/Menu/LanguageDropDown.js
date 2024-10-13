@@ -1,5 +1,5 @@
 import React from "react"
-//import "./FileInput.css"
+import "./LanguageDropDown.css"
 
 const LanguageDropDown = ({
   translationLanguage,
@@ -7,8 +7,8 @@ const LanguageDropDown = ({
   title,
 }) => {
   return (
-    <>
-      <label>{title}</label>
+    <div>
+      <label className="language-language">{title}</label>
       <select
         id="language"
         value={translationLanguage}
@@ -19,7 +19,7 @@ const LanguageDropDown = ({
         <option value="es">español</option>
         <option value="auto">auto</option>
       </select>
-    </>
+    </div>
   )
 }
 

@@ -7,7 +7,6 @@ import Subtitles from "./Subtitles"
 
 const App = () => {
   const playerRef = useRef(null)
-  const subtitlesFileInputRef = useRef(null)
   const [translationLanguage, setTranslationLanguage] = useState("en")
   const [translationLanguageFrom, setTranslationLanguageFrom] = useState("auto")
 
@@ -120,21 +119,6 @@ const App = () => {
     }
   }
 
-  const handleSubtitlesFileChange = () => {
-    const file = subtitlesFileInputRef.current.files[0]
-    if (file) {
-      const subtitlesFileURL = URL.createObjectURL(file)
-      setSubtitlesFileUrl(subtitlesFileURL)
-    }
-  }
-
-  const handleOnChangeLanguage = (event) => {
-    setTranslationLanguage(event.target.value)
-  }
-  const handleOnChangeLanguageFrom = (event) => {
-    setTranslationLanguageFrom(event.target.value)
-  }
-
   return (
     <div
       onKeyDown={handleKeyDown}
@@ -162,12 +146,11 @@ const App = () => {
       />
       <Menu
         setFileUrl={setFileUrl}
-        subtitlesFileInputRef={subtitlesFileInputRef}
-        handleSubtitlesFileChange={handleSubtitlesFileChange}
+        setSubtitlesFileUrl={setSubtitlesFileUrl}
         translationLanguage={translationLanguage}
         translationLanguageFrom={translationLanguageFrom}
-        handleOnChangeLanguage={handleOnChangeLanguage}
-        handleOnChangeLanguageFrom={handleOnChangeLanguageFrom}
+        setTranslationLanguage={setTranslationLanguage}
+        setTranslationLanguageFrom={setTranslationLanguageFrom}
       />
     </div>
   )

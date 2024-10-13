@@ -5,27 +5,44 @@ import Legend from "./Legend"
 
 const Menu = ({
   setFileUrl,
-  subtitlesFileInputRef,
-  handleSubtitlesFileChange,
+  setSubtitlesFileUrl,
   translationLanguage,
   translationLanguageFrom,
-  handleOnChangeLanguage,
-  handleOnChangeLanguageFrom,
+  setTranslationLanguage,
+  setTranslationLanguageFrom,
 }) => {
-  const VideoFileInputRef = useRef(null)
+  const videoFileInputRef = useRef(null)
+  const subtitlesFileInputRef = useRef(null)
 
   const handleFileChange = () => {
-    const file = VideoFileInputRef.current.files[0]
+    const file = videoFileInputRef.current.files[0]
     if (file) {
       const fileURL = URL.createObjectURL(file)
       setFileUrl(fileURL)
     }
   }
+
+  const handleSubtitlesFileChange = () => {
+    const file = subtitlesFileInputRef.current.files[0]
+    if (file) {
+      const subtitlesFileURL = URL.createObjectURL(file)
+      setSubtitlesFileUrl(subtitlesFileURL)
+    }
+  }
+
+  const handleOnChangeLanguage = (event) => {
+    setTranslationLanguage(event.target.value)
+  }
+
+  const handleOnChangeLanguageFrom = (event) => {
+    setTranslationLanguageFrom(event.target.value)
+  }
+
   return (
     <div className="menu">
       <FileInput
         label="Video"
-        inputRef={VideoFileInputRef}
+        inputRef={videoFileInputRef}
         onChange={handleFileChange}
       />
       <FileInput

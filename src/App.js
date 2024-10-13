@@ -35,7 +35,7 @@ const App = () => {
       .then((response) => response.text())
       .then((data) => {
         const parsedSubtitles = SubtitlesParser.fromSrt(
-          data.replace(/<i>|<\/i>|<br\s*\/?>/gi, " "),
+          data.replace(/<i>|<\/i>|<br\s*\/?>/gi, " "), // todo add /n
           true
         ).map((subtitles) => ({
           ...subtitles,

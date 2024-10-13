@@ -8,9 +8,10 @@ const LanguageDropDown = ({
 }) => {
   return (
     <div>
-      <label className="language-language">{title}</label>
+      <label className="language-label">{title}</label>
       <select
         id="language"
+        className="language-select"
         value={translationLanguage}
         onChange={handleOnChangeLanguage}
       >

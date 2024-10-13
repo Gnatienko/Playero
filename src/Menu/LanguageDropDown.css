@@ -1,3 +1,10 @@
-.language-language {
+.language-label {
   color: gray;
+}
+.language-select {
+  color: gray;
+  background-color: black;
+  border: 2px solid gray;
+  border-radius: 5px;
+  margin-left: 5px;
 }

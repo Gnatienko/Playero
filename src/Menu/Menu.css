@@ -2,8 +2,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
-  border-top: 2px solid gray;
+  padding: 7px;
+  border-top: 2px inset gray;
 }
 .elements-container {
   display: inline-flex;

@@ -48,4 +48,22 @@ const handleKeyDown = (
   }
 }
 
-export default handleKeyDown
+const handleKeyUp = (event, setIsPlaying, setShowFullTranslation) => {
+  try {
+    if (
+      event.key === "я" ||
+      event.key === "z" ||
+      event.key === "t" ||
+      event.key === "T" ||
+      event.key === "е" ||
+      event.key === "Е"
+    ) {
+      setIsPlaying(true)
+      setShowFullTranslation(false)
+    }
+  } catch (error) {
+    console.error("Error handling key release:", error)
+  }
+}
+
+export { handleKeyDown, handleKeyUp }

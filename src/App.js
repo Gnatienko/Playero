@@ -1,11 +1,11 @@
-// App.js
 import React, { useState, useEffect, useRef } from "react"
 import ReactPlayer from "react-player"
 import SubtitlesParser from "subtitles-parser"
 import "./App.css"
 import Menu from "./Menu/Menu.js"
 import Subtitles from "./Subtitles"
-import { handleKeyDown, handleKeyUp } from "./keyboardHandler.js" // Import the function
+import { handleKeyDown, handleKeyUp } from "./keyboardHandler.js"
+import { ReactComponent as DoubleArrowDown } from "./assets/double-arrow-down-6.svg"
 
 const App = () => {
   const playerRef = useRef(null)
@@ -20,6 +20,7 @@ const App = () => {
   ])
   const [isPlaying, setIsPlaying] = useState(false)
   const [showFullTranslation, setShowFullTranslation] = useState(false)
+  const [showArrow, setShowArrow] = useState(true)
 
   const handleMouseEnter = () => {
     setIsPlaying(false)
@@ -44,6 +45,18 @@ const App = () => {
         setParsedSubtitles(parsedSubtitles)
       })
   }, [subtitlesFileUrl])
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 5) {
+        setShowArrow(false)
+      }
+    }
+    window.addEventListener("scroll", handleScroll)
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+    }
+  }, [])
 
   const handleProgress = (state) => {
     const PlayedMillisecond = state.playedSeconds * 1000
@@ -90,6 +103,11 @@ const App = () => {
           width="100%"
           height="100%"
         />
+        {showArrow && (
+          <div className="blinking-arrow">
+            <DoubleArrowDown className="arrow-icon" />
+          </div>
+        )}
       </div>
       <Subtitles
         currentSubtitle={currentSubtitle}

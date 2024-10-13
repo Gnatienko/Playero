@@ -2,22 +2,35 @@
   outline: none;
 }
 
-.player{
-display: flex;
-justify-content: center;
-height: 100vh ;}
-
-
-
-.subtitles{
-  background: rgba(0, 0, 0, 0.5);
-  position: absolute;
-  bottom: 10%;
-  left: 0;
-  right: 0;
-  font-size: 36px;
-  text-align: center;
-  color: white;
-  padding: 1%;
+.player {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
 }
 
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.blinking-arrow {
+  position: fixed;
+  bottom: 0px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: blink 1700ms infinite;
+  z-index: 1000;
+}
+
+.arrow-icon {
+  fill: grey;
+  width: 400rem;
+  height: 400rem;
+}

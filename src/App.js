@@ -47,7 +47,14 @@ const App = () => {
   useEffect(() => {
     const subtitlesAdjustmentMils = 1 // todo, subs adjustment not working
     fetch(subtitlesFileUrl)
-      .then((response) => response.text())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(
+            `Network error: ${response.status} ${response.statusText}`
+          )
+        }
+        return response.text()
+      })
       .then((data) => {
         const parsedSubtitles = SubtitlesParser.fromSrt(
           data.replace(/<i>|<\/i>|<br\s*\/?>/gi, " "), // todo add /n
@@ -57,6 +64,9 @@ const App = () => {
           startTime: subtitles.startTime + subtitlesAdjustmentMils,
         }))
         setParsedSubtitles(parsedSubtitles)
+      })
+      .catch((error) => {
+        console.error("Parsing error:", error)
       })
   }, [subtitlesFileUrl])
 

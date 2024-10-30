@@ -1,4 +1,3 @@
-// handleKeyDown.js
 const handleKeyDown = (
   event,
   playerRef,

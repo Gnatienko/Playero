@@ -8,8 +8,7 @@ const useSubtitles = (subtitlesFileUrl) => {
 
   useEffect(() => {
     const subtitlesAdjustmentMils = 0 // todo, add to UI
-    if (!subtitlesFileUrl) return // Prevent fetching if no URL is provided
-
+    if (!subtitlesFileUrl) return
     fetch(subtitlesFileUrl)
       .then((response) => {
         if (!response.ok) {

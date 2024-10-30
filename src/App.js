@@ -4,8 +4,8 @@ import Cookies from "js-cookie"
 import "./App.css"
 import Menu from "./Menu/Menu.js"
 import Subtitles from "./Subtitles/Subtitles.js"
+import BlinkingArrow from "./BlinkingArrow"
 import { handleKeyDown, handleKeyUp } from "./keyboardHandler.js"
-import { ReactComponent as DoubleArrowDown } from "./assets/double-arrow-down-6.svg"
 import useSubtitles from "./hooks/useSubtitles"
 
 const App = () => {
@@ -16,10 +16,9 @@ const App = () => {
   const [subtitlesFileUrl, setSubtitlesFileUrl] = useState("")
   const [currentSubtitle, setCurrentSubtitle] = useState([])
   const [currentSubtitleIndex, setCurrentSubtitleIndex] = useState(0)
-  const parsedSubtitles = useSubtitles(subtitlesFileUrl)
   const [isPlaying, setIsPlaying] = useState(false)
   const [showFullTranslation, setShowFullTranslation] = useState(false)
-  const [showArrow, setShowArrow] = useState(true)
+  const parsedSubtitles = useSubtitles(subtitlesFileUrl)
 
   useEffect(() => {
     const savedTranslationLanguage = Cookies.get("translationLanguage")
@@ -42,31 +41,19 @@ const App = () => {
     setIsPlaying(true)
   }
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 5) {
-        setShowArrow(false)
-      }
-    }
-    window.addEventListener("scroll", handleScroll)
-    return () => {
-      window.removeEventListener("scroll", handleScroll)
-    }
-  }, [])
-
   const handleProgress = (state) => {
-    const PlayedMillisecond = state.playedSeconds * 1000
+    const playedMilliseconds = state.playedSeconds * 1000
     const currentLine = parsedSubtitles.find(
       (subtitle) =>
-        subtitle.startTime < PlayedMillisecond &&
-        subtitle.endTime > PlayedMillisecond
+        subtitle.startTime < playedMilliseconds &&
+        subtitle.endTime > playedMilliseconds
     )
     setCurrentSubtitle(currentLine ? currentLine.text.split(" ") : [])
     const currentLineIndex =
       parsedSubtitles.findIndex(
         (subtitle) =>
-          subtitle.startTime > PlayedMillisecond &&
-          subtitle.endTime > PlayedMillisecond
+          subtitle.startTime > playedMilliseconds &&
+          subtitle.endTime > playedMilliseconds
       ) - 1
     setCurrentSubtitleIndex(currentLineIndex)
   }
@@ -100,12 +87,8 @@ const App = () => {
           width="100%"
           height="100%"
         />
-        {showArrow && (
-          <div className="blinking-arrow">
-            <DoubleArrowDown className="arrow-icon" />
-          </div>
-        )}
       </div>
+      <BlinkingArrow />
       <Subtitles
         currentSubtitle={currentSubtitle}
         handleMouseEnter={handleMouseEnter}

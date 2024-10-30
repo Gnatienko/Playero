@@ -1,6 +1,13 @@
 import React from "react"
 import "./LanguageDropDown.css"
 
+const languages = {
+  en: "English",
+  uk: "українська",
+  es: "español",
+  auto: "auto",
+}
+
 const LanguageDropDown = ({
   translationLanguage,
   handleOnChangeLanguage,
@@ -15,10 +22,11 @@ const LanguageDropDown = ({
         value={translationLanguage}
         onChange={handleOnChangeLanguage}
       >
-        <option value="en">English</option>
-        <option value="uk">українська</option>
-        <option value="es">español</option>
-        <option value="auto">auto</option>
+        {Object.entries(languages).map(([key, label]) => (
+          <option key={key} value={key}>
+            {label}
+          </option>
+        ))}
       </select>
     </div>
   )

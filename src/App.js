@@ -4,7 +4,7 @@ import SubtitlesParser from "subtitles-parser"
 import Cookies from "js-cookie"
 import "./App.css"
 import Menu from "./Menu/Menu.js"
-import Subtitles from "./Subtitles"
+import Subtitles from "./Subtitles/Subtitles.js"
 import { handleKeyDown, handleKeyUp } from "./keyboardHandler.js"
 import { ReactComponent as DoubleArrowDown } from "./assets/double-arrow-down-6.svg"
 
@@ -103,6 +103,7 @@ const App = () => {
 
   return (
     <div
+      className="main"
       onKeyDown={(event) =>
         handleKeyDown(
           event,
@@ -117,7 +118,6 @@ const App = () => {
       onKeyUp={(event) =>
         handleKeyUp(event, setIsPlaying, setShowFullTranslation)
       }
-      style={{ background: "black" }}
     >
       <div className="player">
         <ReactPlayer

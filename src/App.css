@@ -20,21 +20,6 @@
   }
 }
 
-.blinking-arrow {
-  position: fixed;
-  bottom: 0px;
-  left: 50%;
-  transform: translateX(-50%);
-  animation: blink 1700ms infinite;
-  z-index: 1000;
-}
-
-.arrow-icon {
-  fill: grey;
-  width: 400rem;
-  height: 400rem;
-}
-
 .main {
   background: black;
 }

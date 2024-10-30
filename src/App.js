@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from "react"
 import ReactPlayer from "react-player"
-import SubtitlesParser from "subtitles-parser"
 import Cookies from "js-cookie"
 import "./App.css"
 import Menu from "./Menu/Menu.js"
 import Subtitles from "./Subtitles/Subtitles.js"
 import { handleKeyDown, handleKeyUp } from "./keyboardHandler.js"
 import { ReactComponent as DoubleArrowDown } from "./assets/double-arrow-down-6.svg"
+import useSubtitles from "./hooks/useSubtitles"
 
 const App = () => {
   const playerRef = useRef(null)
@@ -16,9 +16,7 @@ const App = () => {
   const [subtitlesFileUrl, setSubtitlesFileUrl] = useState("")
   const [currentSubtitle, setCurrentSubtitle] = useState([])
   const [currentSubtitleIndex, setCurrentSubtitleIndex] = useState(0)
-  const [parsedSubtitles, setParsedSubtitles] = useState([
-    { startTime: 1, text: 1 },
-  ])
+  const parsedSubtitles = useSubtitles(subtitlesFileUrl)
   const [isPlaying, setIsPlaying] = useState(false)
   const [showFullTranslation, setShowFullTranslation] = useState(false)
   const [showArrow, setShowArrow] = useState(true)
@@ -43,34 +41,6 @@ const App = () => {
   const handleMouseLeave = () => {
     setIsPlaying(true)
   }
-
-  useEffect(() => {
-    const subtitlesAdjustmentMils = 0 // todo, add to UI
-    fetch(subtitlesFileUrl)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(
-            `Network error: ${response.status} ${response.statusText}`
-          )
-        }
-        return response.text()
-      })
-      .then((data) => {
-        const parsedSubtitles = SubtitlesParser.fromSrt(data, true).map(
-          (subtitles) => ({
-            ...subtitles,
-            startTime: subtitles.startTime + subtitlesAdjustmentMils,
-            endTime: subtitles.endTime + subtitlesAdjustmentMils,
-            text: subtitles.text.replace(/[\r\n]+|<i>|<\/i>|<br\s*\/?>/gi, " "),
-          })
-        )
-        setParsedSubtitles(parsedSubtitles)
-      })
-      .catch((error) => {
-        console.error("Parsing error:", error)
-      })
-    console.log(parsedSubtitles)
-  }, [subtitlesFileUrl, parsedSubtitles])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -103,7 +73,7 @@ const App = () => {
 
   return (
     <div
-      className="main"
+      className="Main"
       onKeyDown={(event) =>
         handleKeyDown(
           event,
@@ -118,6 +88,7 @@ const App = () => {
       onKeyUp={(event) =>
         handleKeyUp(event, setIsPlaying, setShowFullTranslation)
       }
+      style={{ background: "black" }}
     >
       <div className="player">
         <ReactPlayer

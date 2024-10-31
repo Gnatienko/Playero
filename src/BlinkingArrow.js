@@ -9,15 +9,11 @@ const BlinkingArrow = () => {
     const handleScroll = () => {
       if (window.scrollY > 5) {
         setShowArrow(false)
-      } else {
-        setShowArrow(true)
       }
     }
 
     window.addEventListener("scroll", handleScroll)
-    return () => {
-      window.removeEventListener("scroll", handleScroll)
-    }
+    return () => {}
   }, [])
 
   if (!showArrow) return null

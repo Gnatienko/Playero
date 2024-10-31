@@ -13,11 +13,12 @@ const useSubtitles = (subtitlesFileUrl) => {
       .then((response) => {
         if (!response.ok) {
           throw new Error(
-            `Network error: ${response.status} ${response.statusText}`
+            `Network error1: ${response.status} ${response.statusText}`
           )
         }
         return response.text()
       })
+
       .then((data) => {
         const parsed = SubtitlesParser.fromSrt(data, true).map((subtitle) => ({
           ...subtitle,

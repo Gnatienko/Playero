@@ -14,8 +14,12 @@ const App = () => {
   const playerRef = useRef(null)
   const [translationLanguage, setTranslationLanguage] = useState("en")
   const [translationLanguageFrom, setTranslationLanguageFrom] = useState("auto")
-  const [fileUrl, setFileUrl] = useState("")
-  const [subtitlesFileUrl, setSubtitlesFileUrl] = useState("")
+  const [fileUrl, setFileUrl] = useState(
+    "https://pub-ad085a2e56b1496b854a318cdc5ec8f7.r2.dev/Friends.S01E01.720p.BluRay.Dual.Audio.x264-PSYCHD_x264.mp4"
+  )
+  const [subtitlesFileUrl, setSubtitlesFileUrl] = useState(
+    "https://pub-ad085a2e56b1496b854a318cdc5ec8f7.r2.dev/friends.s01e01.720p.bluray.x264-psychd.srt"
+  )
   const [currentSubtitle, setCurrentSubtitle] = useState([])
   const [currentSubtitleIndex, setCurrentSubtitleIndex] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)

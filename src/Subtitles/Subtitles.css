@@ -14,3 +14,6 @@
   background: rgba(0, 0, 0, 0);
   display: flex;
 }
+.line-wrapper {
+  min-height: 10px;
+}

@@ -22,7 +22,11 @@ const Subtitles = ({
 
   return (
     <div className="subtitles">
-      <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+      <div
+        className="line-wrapper"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
         <Line
           words={currentSubtitle}
           translationLanguage={translationLanguage}

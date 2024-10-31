@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from "react"
+// App.js
+import React, { useState, useRef } from "react"
 import ReactPlayer from "react-player"
-import Cookies from "js-cookie"
 import "./App.css"
 import Menu from "./Menu/Menu.js"
 import Subtitles from "./Subtitles/Subtitles.js"
@@ -8,6 +8,7 @@ import BlinkingArrow from "./BlinkingArrow"
 import { handleKeyDown, handleKeyUp } from "./handleKeyboard.js"
 import useSubtitles from "./hooks/useSubtitles"
 import handleProgress from "./handleProgress"
+import useSavedTranslation from "./hooks/useSavedTranslation"
 
 const App = () => {
   const playerRef = useRef(null)
@@ -20,19 +21,7 @@ const App = () => {
   const [isPlaying, setIsPlaying] = useState(false)
   const [showFullTranslation, setShowFullTranslation] = useState(false)
   const parsedSubtitles = useSubtitles(subtitlesFileUrl)
-
-  useEffect(() => {
-    const savedTranslationLanguage = Cookies.get("translationLanguage")
-    const savedTranslationLanguageFrom = Cookies.get("translationLanguageFrom")
-
-    if (savedTranslationLanguage) {
-      setTranslationLanguage(savedTranslationLanguage)
-    }
-
-    if (savedTranslationLanguageFrom) {
-      setTranslationLanguageFrom(savedTranslationLanguageFrom)
-    }
-  }, [])
+  useSavedTranslation(setTranslationLanguage, setTranslationLanguageFrom)
 
   return (
     <div

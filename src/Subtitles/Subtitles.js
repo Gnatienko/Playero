@@ -40,6 +40,7 @@ const Subtitles = ({
           />
         </div>
       )}
+      <dic className="subtitles-bottom-filler"></dic>
     </div>
   )
 }

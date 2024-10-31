@@ -21,16 +21,14 @@ const Subtitles = ({
   }
 
   return (
-    <div
-      className="subtitles"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-      <Line
-        words={currentSubtitle}
-        translationLanguage={translationLanguage}
-        translationLanguageFrom={translationLanguageFrom}
-      />
+    <div className="subtitles">
+      <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+        <Line
+          words={currentSubtitle}
+          translationLanguage={translationLanguage}
+          translationLanguageFrom={translationLanguageFrom}
+        />
+      </div>
       {showTranslation && (
         <div>
           <TranslationTooltip
@@ -40,7 +38,10 @@ const Subtitles = ({
           />
         </div>
       )}
-      <dic className="subtitles-bottom-filler"></dic>
+      <dic
+        className="subtitles-bottom-filler"
+        onMouseEnter={handleMouseEnter}
+      ></dic>
     </div>
   )
 }

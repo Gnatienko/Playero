@@ -1,7 +1,7 @@
 .subtitles {
   background: rgba(0, 0, 0, 0.5);
   position: absolute;
-  bottom: 0%;
+  bottom: 7vh;
   left: 0;
   right: 0;
   font-size: 36px;
@@ -10,8 +10,7 @@
   padding: 1%;
 }
 .subtitles-bottom-filler {
-  height: 10vh;
+  height: 3vh;
   background: rgba(0, 0, 0, 0);
-
   display: flex;
 }

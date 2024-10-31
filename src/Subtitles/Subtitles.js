@@ -42,10 +42,10 @@ const Subtitles = ({
           />
         </div>
       )}
-      <dic
+      <div
         className="subtitles-bottom-filler"
         onMouseEnter={handleMouseEnter}
-      ></dic>
+      ></div>
     </div>
   )
 }

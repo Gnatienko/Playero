@@ -5,13 +5,21 @@ import TranslationTooltip from "./TranslationTooltip"
 
 const Subtitles = ({
   currentSubtitle,
-  handleMouseEnter,
-  handleMouseLeave,
+  setIsPlaying,
   showTranslation,
   translationLanguage,
   translationLanguageFrom,
 }) => {
   const combinedCurrentSubtitle = currentSubtitle.join(" ")
+
+  const handleMouseEnter = () => {
+    setIsPlaying(false)
+  }
+
+  const handleMouseLeave = () => {
+    setIsPlaying(true)
+  }
+
   return (
     <div
       className="subtitles"

@@ -5,8 +5,9 @@ import "./App.css"
 import Menu from "./Menu/Menu.js"
 import Subtitles from "./Subtitles/Subtitles.js"
 import BlinkingArrow from "./BlinkingArrow"
-import { handleKeyDown, handleKeyUp } from "./keyboardHandler.js"
+import { handleKeyDown, handleKeyUp } from "./handleKeyboard.js"
 import useSubtitles from "./hooks/useSubtitles"
+import handleProgress from "./handleProgress"
 
 const App = () => {
   const playerRef = useRef(null)
@@ -33,31 +34,6 @@ const App = () => {
     }
   }, [])
 
-  const handleMouseEnter = () => {
-    setIsPlaying(false)
-  }
-
-  const handleMouseLeave = () => {
-    setIsPlaying(true)
-  }
-
-  const handleProgress = (state) => {
-    const playedMilliseconds = state.playedSeconds * 1000
-    const currentLine = parsedSubtitles.find(
-      (subtitle) =>
-        subtitle.startTime < playedMilliseconds &&
-        subtitle.endTime > playedMilliseconds
-    )
-    setCurrentSubtitle(currentLine ? currentLine.text.split(" ") : [])
-    const currentLineIndex =
-      parsedSubtitles.findIndex(
-        (subtitle) =>
-          subtitle.startTime > playedMilliseconds &&
-          subtitle.endTime > playedMilliseconds
-      ) - 1
-    setCurrentSubtitleIndex(currentLineIndex)
-  }
-
   return (
     <div
       className="Main"
@@ -81,7 +57,14 @@ const App = () => {
         <ReactPlayer
           ref={playerRef}
           playing={isPlaying}
-          onProgress={handleProgress}
+          onProgress={(state) =>
+            handleProgress(
+              state,
+              parsedSubtitles,
+              setCurrentSubtitle,
+              setCurrentSubtitleIndex
+            )
+          }
           url={fileUrl}
           controls={true}
           width="100%"
@@ -91,8 +74,7 @@ const App = () => {
       <BlinkingArrow />
       <Subtitles
         currentSubtitle={currentSubtitle}
-        handleMouseEnter={handleMouseEnter}
-        handleMouseLeave={handleMouseLeave}
+        setIsPlaying={setIsPlaying}
         showTranslation={showFullTranslation}
         translationLanguage={translationLanguage}
         translationLanguageFrom={translationLanguageFrom}

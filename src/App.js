@@ -29,7 +29,7 @@ const App = () => {
 
   return (
     <div
-      className="Main"
+      className="main"
       onKeyDown={(event) =>
         handleKeyDown(
           event,
@@ -44,7 +44,6 @@ const App = () => {
       onKeyUp={(event) =>
         handleKeyUp(event, setIsPlaying, setShowFullTranslation)
       }
-      style={{ background: "black" }}
     >
       <div className="player">
         <ReactPlayer

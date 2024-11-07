@@ -1,3 +1,45 @@
+const isWithinBounds = (currentSubtitleIndex, key, parsedSubtitles) => {
+  if (currentSubtitleIndex <= 0 && (key === "," || key === "б")) return false
+  if (
+    currentSubtitleIndex >= parsedSubtitles.length - 1 &&
+    (key === "." || key === "ю")
+  )
+    return false
+  return true
+}
+
+const goToPreviousSubtitle = (
+  playerRef,
+  parsedSubtitles,
+  currentSubtitleIndex,
+  setCurrentSubtitle
+) => {
+  if (currentSubtitleIndex > 0) {
+    playerRef.current.seekTo(
+      parseFloat(parsedSubtitles[currentSubtitleIndex - 1].startTime) / 1000
+    )
+    setCurrentSubtitle(
+      parsedSubtitles[currentSubtitleIndex - 1].text.split(" ")
+    )
+  }
+}
+
+const goToNextSubtitle = (
+  playerRef,
+  parsedSubtitles,
+  currentSubtitleIndex,
+  setCurrentSubtitle
+) => {
+  if (currentSubtitleIndex < parsedSubtitles.length - 1) {
+    playerRef.current.seekTo(
+      parseFloat(parsedSubtitles[currentSubtitleIndex + 1].startTime) / 1000
+    )
+    setCurrentSubtitle(
+      parsedSubtitles[currentSubtitleIndex + 1].text.split(" ")
+    )
+  }
+}
+
 const handleKeyDown = (
   event,
   playerRef,
@@ -8,28 +50,24 @@ const handleKeyDown = (
   setShowFullTranslation
 ) => {
   try {
-    if (currentSubtitleIndex <= 0 && (event.key === "," || event.key === "б"))
-      return // Prevents from going below the first subtitle
-    if (
-      currentSubtitleIndex >= parsedSubtitles.length - 1 &&
-      (event.key === "." || event.key === "ю")
-    )
-      return // Prevents from going past the last subtitle
+    if (!isWithinBounds(currentSubtitleIndex, event.key, parsedSubtitles))
+      return
 
     if (event.key === "," || event.key === "б" || event.key === "Backspace") {
-      playerRef.current.seekTo(
-        parseFloat(parsedSubtitles[currentSubtitleIndex - 1].startTime) / 1000
-      )
-      setCurrentSubtitle(
-        parsedSubtitles[currentSubtitleIndex - 1].text.split(" ")
+      goToPreviousSubtitle(
+        playerRef,
+        parsedSubtitles,
+        currentSubtitleIndex,
+        setCurrentSubtitle
       )
     }
+
     if (event.key === "." || event.key === "ю") {
-      playerRef.current.seekTo(
-        parseFloat(parsedSubtitles[currentSubtitleIndex + 1].startTime) / 1000
-      )
-      setCurrentSubtitle(
-        parsedSubtitles[currentSubtitleIndex + 1].text.split(" ")
+      goToNextSubtitle(
+        playerRef,
+        parsedSubtitles,
+        currentSubtitleIndex,
+        setCurrentSubtitle
       )
     }
     if (

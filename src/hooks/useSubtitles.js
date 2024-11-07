@@ -13,7 +13,7 @@ const useSubtitles = (subtitlesFileUrl) => {
       .then((response) => {
         if (!response.ok) {
           throw new Error(
-            `Network error1: ${response.status} ${response.statusText}`
+            `Network error: ${response.status} ${response.statusText}`
           )
         }
         return response.text()

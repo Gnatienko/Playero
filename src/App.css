@@ -1,0 +1,25 @@
+*:focus {
+  outline: none;
+}
+
+.player {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.main {
+  background: black;
+}

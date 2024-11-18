@@ -1,0 +1,17 @@
+.menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7px;
+  border-top: 2px inset gray;
+}
+.elements-container {
+  display: inline-flex;
+  align-items: center;
+
+  justify-content: space-between;
+}
+
+.elements-container > * {
+  margin-right: 3rem;
+}

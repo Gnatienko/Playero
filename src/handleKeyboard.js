@@ -53,7 +53,8 @@ const handleKeyDown = (
     if (!isWithinBounds(currentSubtitleIndex, event.key, parsedSubtitles))
       return
 
-    if (event.key === "," || event.key === "б" || event.key === "Backspace") {
+    const rewKeys = [",", "б"]
+    if (rewKeys.includes(event.key.toLowerCase())) {
       goToPreviousSubtitle(
         playerRef,
         parsedSubtitles,
@@ -62,7 +63,8 @@ const handleKeyDown = (
       )
     }
 
-    if (event.key === "." || event.key === "ю") {
+    const ffKeys = [".", "ю"]
+    if (ffKeys.includes(event.key.toLowerCase())) {
       goToNextSubtitle(
         playerRef,
         parsedSubtitles,
@@ -70,13 +72,8 @@ const handleKeyDown = (
         setCurrentSubtitle
       )
     }
-    if (
-      event.key === "t" ||
-      event.key === "T" ||
-      event.key === "я" ||
-      event.key === "е" ||
-      event.key === "Е"
-    ) {
+    const translationKeys = ["t", "z", "я", "е"]
+    if (translationKeys.includes(event.key.toLowerCase())) {
       setIsPlaying(false)
       setShowFullTranslation(true)
     }
@@ -87,14 +84,7 @@ const handleKeyDown = (
 
 const handleKeyUp = (event, setIsPlaying, setShowFullTranslation) => {
   try {
-    if (
-      event.key === "я" ||
-      event.key === "z" ||
-      event.key === "t" ||
-      event.key === "T" ||
-      event.key === "е" ||
-      event.key === "Е"
-    ) {
+    if (event.key) {
       setIsPlaying(true)
       setShowFullTranslation(false)
     }

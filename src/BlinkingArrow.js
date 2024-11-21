@@ -13,7 +13,9 @@ const BlinkingArrow = () => {
     }
 
     window.addEventListener("scroll", handleScroll)
-    return () => {}
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+    }
   }, [])
 
   if (!showArrow) return null

@@ -5,18 +5,15 @@ const handleProgress = (
   setCurrentSubtitleIndex
 ) => {
   const playedMilliseconds = state.playedSeconds * 1000
-  const currentLine = parsedSubtitles.find(
+
+  const currentLineIndex = parsedSubtitles.findIndex(
     (subtitle) =>
       subtitle.startTime < playedMilliseconds &&
       subtitle.endTime > playedMilliseconds
   )
+  const currentLine = parsedSubtitles[currentLineIndex]
   setCurrentSubtitle(currentLine ? currentLine.text.split(" ") : [])
-  const currentLineIndex =
-    parsedSubtitles.findIndex(
-      (subtitle) =>
-        subtitle.startTime > playedMilliseconds &&
-        subtitle.endTime > playedMilliseconds
-    ) - 1
+
   setCurrentSubtitleIndex(currentLineIndex)
 }
 

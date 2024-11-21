@@ -1,9 +1,9 @@
+import Cookies from "js-cookie"
 import React, { useRef } from "react"
 import FileInput from "./FileInput"
 import LanguageDropDown from "./LanguageDropDown"
 import Legend from "./Legend"
 import "./Menu.css"
-import Cookies from "js-cookie"
 
 const Menu = ({
   setFileUrl,

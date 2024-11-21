@@ -1,14 +1,13 @@
-// App.js
 import React, { useState, useRef } from "react"
 import ReactPlayer from "react-player"
-import "./App.css"
-import Menu from "./Menu/Menu.js"
-import Subtitles from "./Subtitles/Subtitles.js"
+import Menu from "./Menu/Menu"
+import Subtitles from "./Subtitles/Subtitles"
 import BlinkingArrow from "./BlinkingArrow"
-import { handleKeyDown, handleKeyUp } from "./handleKeyboard.js"
+import { handleKeyDown, handleKeyUp } from "./handleKeyboard"
 import useSubtitles from "./hooks/useSubtitles"
 import handleProgress from "./handleProgress"
 import useSavedTranslation from "./hooks/useSavedTranslation"
+import "./App.css"
 
 const App = () => {
   const playerRef = useRef(null)

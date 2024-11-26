@@ -1,0 +1,8 @@
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+  }
+  .content {
+padding-right: 10px;
+  }
+  
